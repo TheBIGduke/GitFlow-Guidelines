@@ -48,12 +48,13 @@ git checkout develop
 ---
 
 # 3. Feature Development Cycle
+
 Every task starts and ends on a temporary branch.
 
 ## 3.1 Branch Naming Convention Dictionary
 
 > [!IMPORTANT]
-> All temporary branches must use a descriptive prefix and are always branched off of develop (except for hotfix/)
+> All temporary branches must use a descriptive prefix and are always branched off of develop (except for `hotfix/`)
 
 | Prefix | Type of Work | Example | 
 |--------|--------------|---------|
@@ -65,7 +66,7 @@ Every task starts and ends on a temporary branch.
 
 ## 3.2 Start the Feature
 
-1. `Sync develop`
+1. Sync `develop`
 ```
 git checkout develop
 git pull
@@ -89,8 +90,74 @@ git commit -m "FEAT: Added initial structure for form"
 git push -u origin feature/new-task-name
 ```
 
-# 3.4 Finish the Feature (Pull Request)
+## 3.4 Finish the Feature (Pull Request)
 
 1. Open a Pull Request requesting to merge your branch INTO `develop`
 2. Get the necessary approval from a reviewer
-3. Merge the PR into develop and delete the temporary branch.
+3. Merge the PR into develop and delete the temporary branch
+
+---
+
+# 4. Release and Production Flow
+
+This process packages the stable code from `develop` into a new, tagged version on `main`
+
+## 4.1 Final Integration and Tagging
+
+1. Merge `develop` to `main`
+```
+git checkout main              # Switch to the production branch
+git pull                       # Ensure local main is up-to-date
+git merge develop              # Merge all new features into main
+```
+
+2. Tag the new commit on main with a version number (e.g., v1.2.0)
+```
+git tag -a v1.2.0 -m "Release v1.2.0: Summary of new features"
+```
+
+3. Push the updated `main` branch and the new tag to the remote
+```
+git push origin main
+git push origin --tags
+```
+
+## 4.2 Creating the Formal GitHub Release
+
+1. Open your repository on GitHub
+2. Click the "Releases" tab
+3. Click "Draft a new release"
+4. Select the tag you just pushed (e.g., v1.2.0)
+5. Provide a clear title and detailed release notes
+6. Click "Publish release"
+
+---
+
+# 5. Hotfixes (Immediate Production Patches)
+
+Use a `hotfix/` branch to fix critical bugs found in production (`main`)
+
+1. Branch off `main`
+```
+git checkout main
+git checkout -b hotfix/critical-production-bug
+```
+
+2. Fix and Commit the changes
+
+3. Merge to `main` and Tag
+```
+git checkout main
+git merge hotfix/critical-production-bug
+git tag -a v1.2.1 -m "HOTFIX: Patched critical bug"
+git push origin main --tags
+```
+
+4. Ensure the fix is applied to the next release
+```
+git checkout develop
+git merge hotfix/critical-production-bug
+git push origin develop
+```
+
+5. Delete the temporary hotfix branch
