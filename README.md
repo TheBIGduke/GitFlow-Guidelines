@@ -51,7 +51,7 @@ git checkout develop
 
 Every task starts and ends on a temporary branch.
 
-## 3.1 Branch Naming Convention Dictionary
+## Branch Naming Convention Dictionary
 
 > [!IMPORTANT]
 > All temporary branches must use a descriptive prefix and are always branched off of develop (except for `hotfix/`)
@@ -61,10 +61,20 @@ Every task starts and ends on a temporary branch.
 | `feature/` | New functionality or major enhancement | `feature/dashboard-v2` |
 | `bugfix/` | Fixing bugs found in the `develop` branch | `bugfix/api-validation-issue` |
 | `hotfix/` | Critical fix for a bug found in production (`main`) | `hotfix/login-crash-v1.0.1` |
-| `feature/` | New functionality or major enhancement | feature/dashboard-v2 |
-| `refactor/` | Restructuring code without changing behavior | feature/dashboard-v2 |
+| `feature/` | New functionality or major enhancement | `feature/dashboard-v2` |
+| `refactor/` | Restructuring code without changing behavior | `refactor/standardize-variable-names` |
 
-## 3.2 Start the Feature
+## Commit Message Style Guide
+
+| Type | When to use | Example | 
+|------|-------------|---------|
+| `FEAT` | A new feature or capability | `FEAT: Add user profile picture upload` |
+| `FIX` | A bug fix (use this on feature/bugfix branches) | `FIX: Correct validation error on login form` | 
+| `CHORE` | "Maintenance tasks, dependency updates, or build changes" | `CHORE: Update node dependencies to latest stable` |
+| `DOCS` | Changes to documentation only | `DOCS: Clarify README instructions` |
+| `REFACTOR` | Code changes that neither fix a bug nor add a feature | `sREFACTOR: Standardize API endpoint paths` |
+
+## 3.1 Start the Feature
 
 1. Sync `develop`
 ```
@@ -77,7 +87,7 @@ git pull
 git checkout -b feature/new-task-name
 ```
 
-## 3.3 Work, Commit, and Push
+## 3.2 Work, Commit, and Push
 
 1. Write code and commit locally
 ```
@@ -90,7 +100,7 @@ git commit -m "FEAT: Added initial structure for form"
 git push -u origin feature/new-task-name
 ```
 
-## 3.4 Finish the Feature (Pull Request)
+## 3.3 Finish the Feature (Pull Request)
 
 1. Open a Pull Request requesting to merge your branch INTO `develop`
 2. Get the necessary approval from a reviewer
