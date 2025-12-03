@@ -13,6 +13,8 @@ Our repository always maintains two permanent branches that serve specific, crit
 | `main` | Production | Always reflects the code currently running in production. It must be stable, tested, and ready to deploy. Only merges (no direct commits) are allowed
 | `develop` | Integration | Reflects the state of the next major release. All completed features are merged here before being packaged for release |
 
+![Core Branches](./Media/branches.svg)
+
 ---
 
 # 2. Synchronization and Setup
@@ -55,6 +57,8 @@ Every task starts and ends on a temporary branch.
 
 > [!IMPORTANT]
 > All temporary branches must use a descriptive prefix and are always branched off of develop (except for `hotfix/`)
+
+![Feature Development](./Media/feature.svg)
 
 | Prefix | Type of Work | Example | 
 |--------|--------------|---------|
@@ -106,6 +110,8 @@ git push -u origin feature/new-task-name
 2. Get the necessary approval from a reviewer
 3. Merge the PR into develop and delete the temporary branch
 
+![Pull Request](./Media/pullreq.svg)
+
 ---
 
 # 4. Release and Production Flow
@@ -120,6 +126,8 @@ git checkout main              # Switch to the production branch
 git pull                       # Ensure local main is up-to-date
 git merge develop              # Merge all new features into main
 ```
+
+![Merge](./Media/merge.svg)
 
 2. Tag the new commit on main with a version number (e.g., v1.2.0)
 ```
@@ -146,6 +154,8 @@ git push origin --tags
 # 5. Hotfixes (Immediate Production Patches)
 
 Use a `hotfix/` branch to fix critical bugs found in production (`main`)
+
+![Hotfix](./Media/hotfix.svg)
 
 1. Branch off `main`
 ```
